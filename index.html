@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross Cup Surface</title>
+    <style>
+        body { 
+        margin: 0; 
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+        }
+        canvas { display: block; }
+        #infoButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .info-popup {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: left;
+            user-select: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <button id="infoButton">&#9432;</button>
+    <div class="info-popup" id="infoPopup">
+        <p style="text-align:center;" ><strong>Cross Cup Surface</strong></p>
+    <p style="color:pink; text-align: center;">The Cross Cup Surface is a fascinating 3D geometric shape that is defined by a set of parametric equations. It is characterized by its intricate, interwoven structure, resembling two cups or surfaces that cross each other.</p>
+            <p style="text-align:center;">For Equations visit my Github. Enjoy!</p>
+    </div>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Space background with glittering stars
+        const starGeometry = new THREE.BufferGeometry();
+        const starVertices = [];
+        const starColors = [];
+        for (let i = 0; i < 1500; i++) {
+            const x = (Math.random() - 0.5) * 100;
+            const y = (Math.random() - 0.5) * 100;
+            const z = (Math.random() - 0.5) * 100;
+            starVertices.push(x, y, z);
+            
+            // Random star colors
+            starColors.push(Math.random(), Math.random(), Math.random());
+        }
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        starGeometry.setAttribute('color', new THREE.Float32BufferAttribute(starColors, 3));
+        
+        const starMaterial = new THREE.PointsMaterial({ size: 0.05, vertexColors: true });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        // Parameters
+        const a = 0.3, b = 0.3;
+        const uStart = -Math.PI, uEnd = Math.PI, uSegments = 50;
+        const vStart = 0, vEnd = 2 * Math.PI, vSegments = 50;
+
+        // Create the geometry
+        const vertices = [];
+        for (let i = 0; i <= uSegments; i++) {
+            const u = uStart + (uEnd - uStart) * (i / uSegments);
+            for (let j = 0; j <= vSegments; j++) {
+                const v = vStart + (vEnd - vStart) * (j / vSegments);
+                const x = Math.exp(b * v) * Math.cos(v) + Math.exp(a * v) * Math.cos(u) * Math.cos(v);
+                const y = Math.exp(b * v) * Math.sin(v) + Math.exp(a * v) * Math.cos(u) * Math.sin(v);
+                const z = Math.exp(a * v) * Math.sin(u);
+                vertices.push(x, y, z);
+            }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+        // Custom shader material
+        const vertexShader = `
+            varying vec3 vPosition;
+            void main() {
+                vPosition = position;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            varying vec3 vPosition;
+            void main() {
+                vec3 color1 = vec3(0.0, 0.5, 1.0); // Blue
+                vec3 color2 = vec3(1.0, 0.5, 0.0); // Orange
+                float mixValue = (sin(vPosition.x) + 1.0) * 0.5;
+                vec3 finalColor = mix(color1, color2, mixValue);
+                gl_FragColor = vec4(finalColor, 1.0);
+            }
+        `;
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader,
+            wireframe: true
+        });
+
+        const crossCup = new THREE.Mesh(geometry, material);
+        crossCup.scale.set(0.1, 0.1, 0.1); // Scale down the object
+        scene.add(crossCup);
+
+        // Position the camera
+        camera.position.z = 3;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            crossCup.rotation.x += 0.01;
+            crossCup.rotation.y += 0.01;
+            
+            // Animate stars by slightly varying their positions
+            const positions = starGeometry.attributes.position.array;
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i + 1] += Math.sin(Date.now() * 0.0001 + positions[i]) * 0.002;
+            }
+            starGeometry.attributes.position.needsUpdate = true;
+            
+            renderer.render(scene, camera);
+        }
+
+        animate();
+        
+        $("#infoButton").click(function() {
+            $("#infoPopup").fadeToggle();
+        });
+    </script>
+</body>
+      </html>
+        
