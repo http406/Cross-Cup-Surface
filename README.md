@@ -48,3 +48,9 @@ The Cross Cup Surface is defined by the following parametric equations:
 ---
 
 The Cross Cup Surface is a mathematically defined 3D surface with a complex, interwoven structure. Its parametric equations combine exponential and trigonometric functions to create a visually striking shape. It is used in mathematical visualization, computer graphics, and art to explore and showcase the beauty of geometric surfaces.
+
+### Output ( index.html )
+![Image](https://github.com/user-attachments/assets/1d13d2eb-fa8b-41f1-898e-6ed37330d557)
+
+### Output ( crossCupSurface.py )
+![Image](https://github.com/user-attachments/assets/c0110dbd-9415-4c0b-8a13-9616dcab3183)
