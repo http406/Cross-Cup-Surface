@@ -20,7 +20,7 @@ The Cross Cup Surface is defined by the following parametric equations:
    - The term \( e^{av} \) and \( e^{bv} \) introduce exponential growth as \( v \) increases. This causes the surface to expand outward, creating a flared or cup-like shape.
 
 3. **Symmetry**:
-   - The surface exhibits rotational symmetry around the \( z \)-axis due to the trigonometric functions \( \cos(v) \) and \( \sin(v) \).
+   - The surface exhibits rotational symmetry around the \( z \)-axis due to the trigonometric functions cos(v) and sin(v).
 
 4. **Topological Complexity**:
    - The Cross Cup Surface is an example of a surface with non-trivial topology. It is not a simple sphere or torus but has a more intricate structure.
@@ -43,7 +43,7 @@ The Cross Cup Surface is defined by the following parametric equations:
 ### **How It Works**
 - The parametric equations define the \( x \), \( y \), and \( z \) coordinates of each point on the surface as functions of \( u \) and \( v \).
 - By varying \( u \) and \( v \) within their specified ranges, you can generate a grid of points that, when connected, form the surface.
-- The exponential terms \( e^{av} \) and \( e^{bv} \) control the rate at which the surface expands or contracts, while the trigonometric terms \( \cos(u) \), \( \sin(u) \), \( \cos(v) \), and \( \sin(v) \) create the oscillatory patterns that give the surface its unique shape.
+- The exponential terms \( e^{av} \) and \( e^{bv} \) control the rate at which the surface expands or contracts, while the trigonometric terms cos(u), sin(u), cos(v), and sin(v) create the oscillatory patterns that give the surface its unique shape.
 
 ---
 
