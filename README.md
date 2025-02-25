@@ -7,17 +7,7 @@ The **Cross Cup Surface** is a fascinating 3D geometric shape that is defined by
 ### **Mathematical Definition**
 The Cross Cup Surface is defined by the following parametric equations:
 
-\[
-\begin{cases}
-x = e^{bv} \cdot \cos(v) + e^{av} \cdot \cos(u) \cdot \cos(v) \\
-y = e^{bv} \cdot \sin(v) + e^{av} \cdot \cos(u) \cdot \sin(v) \\
-z = e^{av} \cdot \sin(u)
-\end{cases}
-\]
-
-#### **Parameters**:
-- \( u \) and \( v \): These are the parameters that define the surface. Typically, \( u \) ranges from \(-\pi\) to \(\pi\), and \( v \) ranges from \(0\) to \(2\pi\).
-- \( a \) and \( b \): These are constants that control the shape and curvature of the surface. By adjusting these values, you can create different variations of the surface.
+![Image](https://github.com/user-attachments/assets/5dcb8857-704f-4819-a968-c2527f4d0e00)
 
 ---
 
